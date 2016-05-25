@@ -49,3 +49,5 @@ gem 'rspec', '3.1'
 gem 'rspec-rails', '3.1'
 gem 'rspec-context-private', '0.0.1'
 gem 'rspec-html-matchers', '0.6.1'
+
+gem 'themoviedb', '~> 1.0', '>= 1.0.1'

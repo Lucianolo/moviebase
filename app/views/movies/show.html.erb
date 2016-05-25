@@ -3,22 +3,26 @@
     <div class="movie">
       
       <!-- Display the movie's info here -->
-      <div class="info">
-        <%= image_tag @movie.image %>
-        <h3 class="movie-title"> <%= @movie.title %>  </h3>
-        <p class="movie-release-year"> <%= @movie.release_year %> </p>
-        <p class="movie-plot"> <%= @movie.plot %> </p>
+      <div class="info row">
+        <div class="col-sm-5"><%= image_tag @movie.image %></div>
+        <div class="col-sm-7">
+          <h3 class="movie-title"> <%= @movie.title %>  </h3>
+          <p class="movie-release-year"> <%= @movie.release_year %> </p>
+          <p class="movie-plot"> <%= @movie.plot %> </p>
+          </div>
+        
+        
       </div>
     </div>
 
     <h2>Cast</h2>
-    
+    <%= puts "Movie info: "+@movie.to_s %>
     <% @actors.each do |f| %>
     <!-- Display each actor's info here -->
     <div class="actor">
       <%= link_to image_tag(f.image) , actor_path(f) %>
-      <h3 class="actor-name"> <%= f.first_name+" "+f.last_name %> </h3>
-      <p class="actor-bio"> <%= f.bio %> </p>
+      <h3 class="actor-name"> <%= f.name %> </h3>
+      <p class="actor-bio">as: <%= f.character_in(@movie) %> </p>
     </div>
 		
     <% end %>

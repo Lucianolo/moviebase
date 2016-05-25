@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'movies#index'
   
   
   get '/movies' => 'movies#index'
@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get '/actors' => 'actors#index'
   get '/actors/:id' => 'actors#show', as: :actor
   
+  get '/search/:id' => 'movies#search', as: :search
   
+  get '/add_movie/:id' => 'movies#add_movie', as: :add_movie
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,0 +1,18 @@
+<div class="container">
+    <% if @movie_results.count>0 %>
+        <% @movie_results.each do |f| %>
+            <div class="row">
+                <h3 class="movie-title">
+                    <%= link_to f["title"], add_movie_path(f["id"]) %>
+                </h3>
+            </div>
+        <% end %>
+    <% else %>
+        <div class="container">
+          <div class="jumbotron">
+            <h1>No Results</h1> 
+            <p>Your search produced 0 results.</p> 
+          </div>
+        </div>
+    <% end %>
+</div>
