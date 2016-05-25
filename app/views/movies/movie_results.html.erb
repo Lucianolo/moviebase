@@ -1,6 +1,6 @@
 <div class="container">
-    <% if @movie_results.count>0 %>
-        <% @movie_results.each do |f| %>
+    <% if @movies.count>0 %>
+        <% @movies.each do |f| %>
             <div class="row">
                 <h3 class="movie-title">
                     <%= link_to f["title"], add_movie_path(f["id"]) %>

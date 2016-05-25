@@ -22,11 +22,13 @@
                 <%= link_to image_tag(f.image), movie_path(f) %>
                 <h3 class="movie-title"> <%= f.title %> </h3>
                 <p class="movie-release-year"> <%= f.release_year %> </p>
+                <p class="text">as: <%= @actor.character_in(f) %></p>
                 <p class="movie-plot">
-                    <% if f.plot.length < 400 %>
+                    <% if f.plot.length < 250 %>
                         <%= f.plot %> 
                     <% else %>
-                        <%= f.plot[0...400]+" . . ." %>
+                        <%= f.plot[0...250]+" . . ." %>
+                        <%= link_to "Read more", movie_path(f) %>
                     <% end %>
                 </p>
               </div>

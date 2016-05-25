@@ -8,14 +8,16 @@
 
 <div class="main">
   <div class="container">
-  <h2>Popular Films</h2>
-
-  <% @movies.each do |f| %>
-    <div class="movie">
-      <%= image_tag f.image %>
-      <h3> <%= f.title %> </h3>
-      <p> <%= f.release_year %> </p>
-      <%= link_to "Learn more", movie_path(f) %>
+    <h2>Popular Films</h2>
+    <div class="row">
+      <% @movies.each do |f| %>
+      <div class="col-md-3">
+        <div class="movie">
+        <%= image_tag f.image %>
+        <h3> <%= f.title %> </h3>
+        <p> <%= f.release_year %> </p>
+        <%= link_to "Learn more", movie_path(f) %>
+        </div>
     </div>
   <% end %>
       
