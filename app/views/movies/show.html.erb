@@ -13,13 +13,18 @@
           <p class="movie-plot" style="position:relative; top:1em"> <%= @movie.plot %> </p>
           <div style="padding-top:2em; color:#0393ff" >IMDB Rating:<span class="stars pull-right" id="stars" ><%= @movie.rating %></span></div>
           
-          </div>
+        </div>
         
         
       </div>
     </div>
   </div>
-  
+  <div class="container">
+    <div align="center" class="embed-responsive embed-responsive-16by9">
+    <iframe width="420" height="315" src='<%= @trailer_url %>'>
+    </iframe>
+</div>
+  </div>
   <div class="container">
     <h2>Cast</h2>
     <div class="cast row">

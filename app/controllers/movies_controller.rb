@@ -64,6 +64,7 @@ class MoviesController < ApplicationController
           end
         end
         @movies.push(@movie)
+        
           
       end
       
@@ -74,6 +75,7 @@ class MoviesController < ApplicationController
   def show
   	@movie = Movie.find(params[:id])
     @actors = @movie.actors
+    @trailer_url = "https://www.youtube.com/embed/"+Tmdb::Movie.trailers(@movie.tmdb)["youtube"][0]["source"]+"?autoplay=0"
   end
   
   
@@ -143,7 +145,8 @@ class MoviesController < ApplicationController
       if @movie.save!
         @movie.update(title: title, release_year: release_year, image: poster_path, plot: plot, tmdb: tmdb_id, imdb: @imdb, rating: rating)
       end
-      
+      @trailer_url = "https://www.youtube.com/embed/"+Tmdb::Movie.trailers(tmdb_id)["youtube"][0]["source"]+"?autoplay=0"
+     
       cast = Tmdb::Movie.casts(tmdb_id)
       
       if cast.size > 0
