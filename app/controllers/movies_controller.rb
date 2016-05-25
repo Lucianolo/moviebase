@@ -26,6 +26,9 @@ class MoviesController < ApplicationController
         rating = movie.vote_average/2
         @imdb = movie.imdb_id
         
+        tagline = Tmdb::Movie.detail(movie.id)["tagline"]
+        
+        puts tagline
         
         if Tmdb::Movie.images(movie.id)['posters'].size > 0
           poster_path = base_url+poster_size+Tmdb::Movie.images(movie.id)['posters'][0]["file_path"]
@@ -34,7 +37,7 @@ class MoviesController < ApplicationController
         
         @movie = Movie.new(movie_params)
         if @movie.save!
-          @movie.update(title: title, release_year: release_year, image: poster_path, plot: plot, tmdb: movie.id, imdb: @imdb, rating: rating)
+          @movie.update(title: title, release_year: release_year, image: poster_path, plot: plot, tmdb: movie.id, imdb: @imdb, rating: rating, tagline: tagline)
         end
         
         cast = Tmdb::Movie.casts(movie.id)
@@ -132,9 +135,8 @@ class MoviesController < ApplicationController
       release_year = movie["release_date"]
       rating = movie["vote_average"]/2
       @imdb = movie["imdb_id"]
+      tagline = movie["tagline"]
       
-      puts "Image"
-      puts Tmdb::Movie.images(tmdb_id)
       
       if Tmdb::Movie.images(tmdb_id)['posters'].size > 0
         poster_path = @base_url+@poster_size+Tmdb::Movie.images(tmdb_id)['posters'][0]["file_path"]
@@ -143,7 +145,7 @@ class MoviesController < ApplicationController
       
       @movie = Movie.new(movie_params)
       if @movie.save!
-        @movie.update(title: title, release_year: release_year, image: poster_path, plot: plot, tmdb: tmdb_id, imdb: @imdb, rating: rating)
+        @movie.update(title: title, release_year: release_year, image: poster_path, plot: plot, tmdb: tmdb_id, imdb: @imdb, rating: rating, tagline: tagline)
       end
       @trailer_url = "https://www.youtube.com/embed/"+Tmdb::Movie.trailers(tmdb_id)["youtube"][0]["source"]+"?autoplay=0"
      

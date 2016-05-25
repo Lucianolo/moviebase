@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525200556) do
+ActiveRecord::Schema.define(version: 20160525215139) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "first_name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160525200556) do
     t.string   "imdb"
     t.string   "tmdb"
     t.float    "rating"
+    t.string   "tagline"
   end
 
   create_table "parts", force: :cascade do |t|

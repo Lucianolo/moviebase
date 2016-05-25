@@ -4,10 +4,10 @@
       
       <!-- Display the movie's info here -->
       <div class="info row">
-        <div class="col-sm-5">
+        <div class="col-md-5">
           <%= image_tag @movie.image %>
         </div>
-        <div class="col-sm-7" style="position:relative;">
+        <div class="col-md-7" style="position:relative; padding-bottom:2em;">
           <h3 class="movie-title"> <%= @movie.title %>  </h3></br>
           <p class="movie-release-year text-right"> <%= @movie.release_year %> </p>
           <p class="movie-plot" style="position:relative; top:1em"> <%= @movie.plot %> </p>

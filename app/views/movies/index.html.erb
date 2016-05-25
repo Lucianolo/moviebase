@@ -1,3 +1,4 @@
+<!--
 <div class="hero">
   <div class="container">
     <h2>Interstellar</h2>
@@ -5,10 +6,61 @@
     <a href="#">Read More</a>
   </div>
 </div>
+-->
 
+<div id="wrapper jumbotron">
+  <div id="content" class="row" style ="margin:0 2em;">
+    <div class="col-md-6">
+    <ul id="movieposters">
+        <% movie1 = Movie.find(249) %>
+  			<li>
+  				<img src='<%= movie1.image %>' alt="X-Men" width="300px" height="450px"/>
+  				<div class="movieinfo">
+  					<h3><%= movie1.title %></h3>
+  					<p><%= movie1.tagline %> </p>
+  					<%= link_to "More info" , movie_path(movie1) %>
+  				</div>
+  			</li>
+  			<% movie2 = Movie.find(230) %>
+  			<li>
+  				<img src='<%= movie2.image %>' alt="X-Men" width="300px" height="450px" />
+  				<div class="movieinfo">
+  					<h3><%= movie2.title %></h3>
+  					<p><%= movie2.tagline %> </p>
+  					<%= link_to "More info" , movie_path(movie2) %>
+  				</div>
+  			</li>
+  	</ul>
+  	</div>
+  	<div class="col-md-6">
+  	<ul id="movieposters_right">
+  			<% movie3 = Movie.find(231) %>
+  			<li>
+  				<img src='<%= movie3.image %>' alt="X-Men" width="300px" height="450px"  />
+  				<div class="movieinfo_right ">
+  					<h3><%= movie3.title %></h3>
+  					<p><%= movie3.tagline %> </p>
+  					<%= link_to "More info" , movie_path(movie3) %>
+  				</div>
+  			</li>
+  			<% movie4 = Movie.find(232) %>
+  			<li>
+  				<img src='<%= movie4.image %>' alt="X-Men" width="300px" height="450px" />
+  				<div class="movieinfo_right">
+  					<h3><%= movie4.title %></h3>
+  					<p><%= movie4.tagline %> </p>
+  					<%= link_to "More info" , movie_path(movie3) %>
+  				</div>
+  			</li>
+			
+		</ul>
+		</div>
+	</div>
+</div>
+<hr>
 <div class="main">
   <div class="container">
-    <h2>Popular Films</h2>
+    <h2>Latest Films</h2>
     <div class="row">
       <% @movies.each do |f| %>
       <div class="col-md-3">
