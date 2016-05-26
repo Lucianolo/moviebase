@@ -5,8 +5,8 @@ class MoviesController < ApplicationController
   
   
   def index
+    puts params
     movies = Tmdb::Movie.now_playing
-    puts movies
     @movies = []
     movies.each do |movie|
       if Movie.where(tmdb: movie.id ).count > 0
@@ -27,8 +27,6 @@ class MoviesController < ApplicationController
         @imdb = movie.imdb_id
         
         tagline = Tmdb::Movie.detail(movie.id)["tagline"]
-        
-        puts tagline
         
         if Tmdb::Movie.images(movie.id)['posters'].size > 0
           poster_path = base_url+poster_size+Tmdb::Movie.images(movie.id)['posters'][0]["file_path"]
@@ -72,20 +70,18 @@ class MoviesController < ApplicationController
       end
       
     end
-    puts @movies
   end
   
   def show
   	@movie = Movie.find(params[:id])
     @actors = @movie.actors
-    @trailer_url = "https://www.youtube.com/embed/"+Tmdb::Movie.trailers(@movie.tmdb)["youtube"][0]["source"]+"?autoplay=0"
+    trailer = Tmdb::Movie.trailers(@movie.tmdb)["youtube"]
+    puts trailer
+    @trailer_url = "https://www.youtube.com/embed/"+trailer[0]["source"]+"?autoplay=0" unless !(trailer.size > 0)
   end
   
   
   def search
-    
-    puts params
-    
     @id = params[:search]
     
     
@@ -177,6 +173,82 @@ class MoviesController < ApplicationController
       @actors = @movie.actors
       render :show
     end
+  end
+  
+  
+  def categories
+    puts params[:id]
+    @categorie = params[:id].capitalize
+    case params[:id]
+    when "upcoming"
+      movies = Tmdb::Movie.upcoming
+    when "top_rated"
+      movies = Tmdb::Movie.top_rated
+    when "popular"
+      movies = Tmdb::Movie.popular
+    end
+    
+    @movies = []
+    movies.each do |movie|
+      if Movie.where(tmdb: movie.id ).count > 0
+        @movies.push(Movie.where(tmdb: movie.id ).first)
+        
+      else
+        
+        configuration = Tmdb::Configuration.new
+      
+        base_url = configuration.secure_base_url
+        poster_size = configuration.poster_sizes.last
+        profile_size = configuration.profile_sizes.last
+        
+        title = movie.title
+        plot = movie.overview
+        release_year = movie.release_date
+        rating = movie.vote_average/2
+        @imdb = movie.imdb_id
+        
+        tagline = Tmdb::Movie.detail(movie.id)["tagline"]
+        
+        if Tmdb::Movie.images(movie.id)['posters'].size > 0
+          poster_path = base_url+poster_size+Tmdb::Movie.images(movie.id)['posters'][0]["file_path"]
+        end
+        
+        
+        @movie = Movie.new(movie_params)
+        if @movie.save!
+          @movie.update(title: title, release_year: release_year, image: poster_path, plot: plot, tmdb: movie.id, imdb: @imdb, rating: rating, tagline: tagline)
+        end
+        
+        cast = Tmdb::Movie.casts(movie.id)
+        
+        if cast.size > 8
+          for i in 0..7 
+          
+          # If an actor is already in our DB we don't add it again, but just push it into the @actors array
+            actor = Actor.where(name: cast[i]["name"]).first
+            if !actor.nil? 
+              @movie.actors << actor
+              Part.where(actor_id: actor.id, movie_id: @movie.id).first.update(character: cast[i]["character"])
+            else
+              actor = Actor.new(actor_params)
+              if !cast[i]["profile_path"].nil?
+                profile_image = base_url+profile_size+cast[i]["profile_path"]
+              else
+                next
+              end
+              if actor.save!
+                actor.update(name: cast[i]["name"], character: cast[i]["character"], image: profile_image)
+                @movie.actors << actor
+                Part.where(actor_id: actor.id, movie_id: @movie.id).first.update(character: cast[i]["character"])
+              end
+            end
+            
+          end
+        end
+        @movies.push(@movie)
+      end
+    end
+    
   end
   
   private 

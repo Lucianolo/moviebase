@@ -5,4 +5,6 @@ class Movie < ActiveRecord::Base
     def short_description
         self.plot[0...50]
     end
+    
+    
 end

@@ -12,7 +12,8 @@
   <div id="content" class="row" style ="margin:0 2em;">
     <div class="col-md-6">
     <ul id="movieposters">
-        <% movie1 = Movie.find(249) %>
+        <% movie_list = random_movie %>
+        <% movie1 = movie_list[0] %>
   			<li>
   				<img src='<%= movie1.image %>' alt="X-Men" width="300px" height="450px"/>
   				<div class="movieinfo">
@@ -21,7 +22,7 @@
   					<%= link_to "More info" , movie_path(movie1) %>
   				</div>
   			</li>
-  			<% movie2 = Movie.find(230) %>
+  			<% movie2 = movie_list[1] %>
   			<li>
   				<img src='<%= movie2.image %>' alt="X-Men" width="300px" height="450px" />
   				<div class="movieinfo">
@@ -34,7 +35,7 @@
   	</div>
   	<div class="col-md-6">
   	<ul id="movieposters_right">
-  			<% movie3 = Movie.find(231) %>
+  			<% movie3 = movie_list[2] %>
   			<li>
   				<img src='<%= movie3.image %>' alt="X-Men" width="300px" height="450px"  />
   				<div class="movieinfo_right ">
@@ -43,7 +44,7 @@
   					<%= link_to "More info" , movie_path(movie3) %>
   				</div>
   			</li>
-  			<% movie4 = Movie.find(232) %>
+  			<% movie4 = movie_list[3] %>
   			<li>
   				<img src='<%= movie4.image %>' alt="X-Men" width="300px" height="450px" />
   				<div class="movieinfo_right">
@@ -60,7 +61,7 @@
 <hr>
 <div class="main">
   <div class="container">
-    <h2>Latest Films</h2>
+   <h2>On Theaters</h2>
     <div class="row">
       <% @movies.each do |f| %>
       <div class="col-md-3">

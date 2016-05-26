@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   
   get '/add_movie/:id' => 'movies#add_movie', as: :add_movie
   
+  get '/movies/categories/:id' => 'movies#categories', as: :categories
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

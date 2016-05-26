@@ -304,24 +304,24 @@ h2 a { display: block; text-decoration: none; margin: 0 0 30px 0; font: italic 4
 	-webkit-transition-property: perspective; -webkit-transition-duration: 0.5s; }
 #movieposters li:hover , #movieposters_right li:hover  { -webkit-perspective: 15000; }
 	
-#movieposters li img { border:10px solid #fcfafa; -webkit-transform: rotateY(30deg);
+#movieposters li img { border:10px solid #fcfafa; -webkit-transform: rotateY(20deg);
 	-moz-box-shadow:0 3px 10px #888; -webkit-box-shadow:0 3px 10px #888;
 	-webkit-transition-property: transform; -webkit-transition-duration: 0.5s; }
 #movieposters li:hover img { -webkit-transform: rotateY(0deg); }
 
-#movieposters_right li img { border:10px solid #fcfafa; -webkit-transform: rotateY(-30deg);
+#movieposters_right li img { border:10px solid #fcfafa; -webkit-transform: rotateY(-20deg);
 	-moz-box-shadow:0 3px 10px #888; -webkit-box-shadow:0 3px 10px #888;
 	-webkit-transition-property: transform; -webkit-transition-duration: 0.5s; }
 #movieposters_right li:hover img { -webkit-transform: rotateY(0deg); }
 	
 .movieinfo { border:10px solid #fcfafa; padding:20px; width:200px; height:180px; background-color:#deddcd; margin:-195px 0 0 55px; position:absolute;
 	-moz-box-shadow:0 20px 40px #888; -webkit-box-shadow:0 20px 40px #888;
-	-webkit-transform: translateZ(30px) rotateY(30deg);
+	-webkit-transform: translateZ(30px) rotateY(20deg);
 	-webkit-transition-property: transform, box-shadow, margin; -webkit-transition-duration: 0.5s; }
 	
 .movieinfo_right { border:10px solid #fcfafa; padding:20px; width:200px; height:180px; background-color:#deddcd; margin:-195px 0 0 55px; position:absolute;
 	-moz-box-shadow:0 20px 40px #888; -webkit-box-shadow:0 20px 40px #888;
-	-webkit-transform: translateZ(30px) rotateY(-30deg);
+	-webkit-transform: translateZ(30px) rotateY(-20deg);
 	-webkit-transition-property: transform, box-shadow, margin; -webkit-transition-duration: 0.5s; }
 	
 #movieposters li:hover .movieinfo { -webkit-transform: rotateY(0deg); -webkit-box-shadow:0 5px 10px #888; margin:-175px 0 0 30px; }
