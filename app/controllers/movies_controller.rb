@@ -5,8 +5,8 @@ class MoviesController < ApplicationController
   $configuration = Tmdb::Configuration.new
   
   $base_url = $configuration.secure_base_url
-  $poster_size = $configuration.poster_sizes.last
-  $profile_size = $configuration.profile_sizes.last
+  $poster_size = "w342"
+  $profile_size = "w185"
   
   def index
     movies = Tmdb::Movie.now_playing
@@ -32,7 +32,7 @@ class MoviesController < ApplicationController
   	@movie = Movie.find(params[:id])
     @actors = @movie.actors
     trailer = Tmdb::Movie.trailers(@movie.tmdb)["youtube"]
-    @imdb_link = "https://www.imdb.com/title/"+@movie.imdb
+    @imdb_link = "https://www.imdb.com/title/"+@movie.imdb unless @movie.imdb.nil?
     @trailer_url = "https://www.youtube.com/embed/"+trailer[0]["source"]+"?autoplay=0" unless !(trailer.size > 0)
   end
   
@@ -173,6 +173,7 @@ class MoviesController < ApplicationController
       end
       for i in 0..cast_size
         if !cast[i].nil?
+          
 # If an actor is already in our DB we don't add it again, but just push it into the @actors array
           actor = Actor.where(name: cast[i]["name"])
           if actor.any? 
@@ -185,8 +186,9 @@ class MoviesController < ApplicationController
             else
               profile_image = nil
             end
+            
             if actor.save!
-              actor.update(name: cast[i]["name"], character: cast[i]["character"], image: profile_image)
+              actor.update(name: cast[i]["name"], character: cast[i]["character"], image: profile_image, tmdb: cast[i]["id"])
               @movie.actors << actor
               Part.where(actor_id: actor.id, movie_id: @movie.id).first.update(character: cast[i]["character"])
             end

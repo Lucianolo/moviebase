@@ -344,6 +344,17 @@ h2 a { display: block; text-decoration: none; margin: 0 0 30px 0; font: italic 4
 
 .custom-link:hover {
   color:goldenrod;
+  text-decoration: none;
+}
+.custom-link:focus {
+  color:goldenrod;
+  text-decoration: none;
+}
+
+.header-text {
+  color:#0393ff ;
+  text-align:center;
+  margin: 1em auto;
 }
 /* PAGE LOADING ANIMATION */
 /*

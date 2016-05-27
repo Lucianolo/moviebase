@@ -4,31 +4,28 @@
     <div class="movie row">
       
       <!-- Display the movie's info here -->
-      <div class="info row">
-        <div class="col-md-5">
+      <div class="row" style="height:auto;padding-bottom:2em;">
+        <div class="col-sm-4">
           <%= image_tag @movie.image %>
         </div>
-        <div class="col-md-7" style="position:relative; padding-bottom:2em;">
+        <div class="col-sm-8">
+          <div class="info" style="width:100%;margin-left:0.5em">
           <h3 class="movie-title"> <%= @movie.title %>  </h3></br>
           <p class="movie-release-year text-right"> <%= @movie.release_year %> </p>
-          <p class="movie-plot" style="font-size:15px"> <%= @movie.plot %> 
+          <p class="movie-plot" style="font-size:15px;"> <%= @movie.plot %> 
             <div style="padding-top:2em; color:#0393ff" ><%= link_to "IMDB" , @imdb_link , :class => "custom-link", :target => "_blank" %> Rating:<span class="stars pull-right" id="stars" ><%= @movie.rating %></span></div>
           </p>
+          </div>
         </div>
       </div>
     </div>
-    <% if @trailer_url.nil? %>
-        <div class="container" style="margin-top:40em; height:10%">
-          <div class="jumbotron">
-            <h1>No Trailer</h1> 
-            <p style="color:#0393ff;">Sorry, no trailer link on our db.</p> 
-          </div>
-        </div>
-    
-    <% else %>
-    <div class="container" style="display:block;clear:both">
-      <div align="center" class="embed-responsive embed-responsive-16by9">
-      <iframe width="420" height="315" src='<%= @trailer_url %>'>
+    <% if !@trailer_url.nil? %>
+    <h2 class="header-text row" style="margin: 0 auto">Trailer
+        <hr>
+    </h1>
+    <div class="container" style="display:block;max-width:930px">
+      <div align="center" class="row embed-responsive embed-responsive-16by9">
+      <iframe width="400" height="315" src='<%= @trailer_url %>'>
       </iframe>
       </div>
     </div>

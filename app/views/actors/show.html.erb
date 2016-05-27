@@ -2,20 +2,17 @@
     <div class="container">
         
         <!-- Display an actor's info here -->
-        <div class="actor row">
-            <div class="col-sm-5"> <%= image_tag @actor.image %> </div>
-            <div class="col-sm-7">
-                <div class="info">
+        <div class="actor row" style="height:auto" >
+            <div class="col-sm-4"> <%= image_tag @actor.image %> </div>
+            <div class="col-sm-8" >
+                <div class="info" style="width:auto">
                     <h3 class="actor-name"> <%= @actor.name %> </h3>
-                    <p class="actor-bio"> <%= @actor.bio %></p>
+                    <p class="actor-bio" style="padding:5em 5em 5em 0"> <%= @bio %></p>
                 </div>
             </div>
-          
         </div>
         
-        
-    </div>
-    <div class="container">
+    <div class="movies row" >
             <h2>Movies</h2>
             <% @movies.each do |f| %>
               <div class="movie">
@@ -24,14 +21,15 @@
                 <p class="movie-release-year"> <%= f.release_year %> </p>
                 <p class="text">as: <%= @actor.character_in(f) %></p>
                 <p class="movie-plot">
-                    <% if f.plot.length < 250 %>
+                    <% if f.plot.length < 120 %>
                         <%= f.plot %> 
                     <% else %>
-                        <%= f.plot[0...250]+" . . ." %>
+                        <%= f.plot[0...120]+" . . ." %>
                         <%= link_to "Read more", movie_path(f) %>
                     <% end %>
                 </p>
               </div>
             <% end %>
+    </div>
     </div>
 </div>

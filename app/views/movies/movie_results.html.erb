@@ -1,18 +1,25 @@
 <div class="container">
-    <% if @movies.count>0 %>
-        <% @movies.each do |f| %>
-            <div class="row">
-                <h3 class="movie-title">
-                    <%= link_to f["title"], add_movie_path(f["id"]) %>
-                </h3>
-            </div>
-        <% end %>
-    <% else %>
-        <div class="container">
-          <div class="jumbotron">
+    
+        <h1 class="header-text row">Search Results
+        <hr>
+        </h1>
+        
+        
+    
+        <% if @movies.count>0 %>
+            <% @movies.each do |f| %>
+                <div class="row" style="width:auto;display:block;margin-left:0;margin-right:0">
+                    <h3 >
+                        <%= link_to f["title"], add_movie_path(f["id"]), :class => 'custom-link' %>
+                    </h3>
+                </div>
+            <% end %>
+        <% else %>
+           
             <h1>No Results</h1> 
             <p>Your search produced 0 results.</p> 
-          </div>
-        </div>
-    <% end %>
+              
+           
+        <% end %>
+    </div>
 </div>

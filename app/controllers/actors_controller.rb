@@ -8,6 +8,8 @@ class ActorsController < ApplicationController
         @actor = Actor.find(params[:id])
         @movies = @actor.movies
         
+        person = Tmdb::Person.detail(@actor.tmdb)
         
+        @bio = person["biography"]
     end
 end
