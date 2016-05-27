@@ -14,7 +14,16 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    
+  	
+   	
+		
+		<div class="loader">
+	    <span class="ball"></span>
+	    <span class="ball2"></span>
+	    <ul>
+	        <li></li><li></li><li></li><li></li><li></li>
+	    </ul>
+		</div>
     
 		<nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation">
 		<div class="container">
@@ -33,10 +42,10 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 				  <li><h1 id="title">Movie Base</h1></li>
-					<li style="padding-left:2em;"><%= link_to "Movies", movies_path %></a></li>
-					<li><%= link_to "Actors", actors_path %></li>
+					<li style="padding-left:2em;"><%= link_to "Movies", movies_path, :class => "custom-link" %></a></li>
+					<li><%= link_to "Actors", actors_path , :class => "custom-link" %></li>
 					<li class="dropdown">
-					  	<%= link_to 'Categories <b class="caret"></b>'.html_safe, "#", :id => 'dropdownMenu1', :'data-toggle' => 'dropdown', :'aria-haspopup' => "true" , :class => 'dropdown-toggle' %>
+					  	<%= link_to 'Categories <b class="caret"></b>'.html_safe, "#", :id => 'dropdownMenu1', :'data-toggle' => 'dropdown', :'aria-haspopup' => "true" , :class => 'dropdown-toggle custom-link' %>
 					  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 					    <li><%= link_to "Upcoming" , categories_path("upcoming")%></li>
 							<li><%= link_to "Popular" , categories_path("popular")%></li>
@@ -76,8 +85,24 @@
   </div>
   <footer class="footer" style="background-color:darkgray;">
       <p class="text-right">
-        <img src="https://assets.tmdb.org/images/logos/var_2_0_PoweredByTMDB_Blk_Bree.png" alt="V2.0 (PNG)">
+        <img src="https://assets.tmdb.org/images/logos/var_2_0_PoweredByTMDB_Blk_Bree.png" alt="V2.0 (PNG)" >
       </p>
   </footer>
+  
+  
+  <script type="text/javascript">
+  
+  // Javascript / JQuery for loading animation
+  
+			$(document).ready(function() {
+				$(".loader").fadeOut("slow");
+			})	
+			var myEvent = window.attachEvent || window.addEventListener;
+			var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compitable
+
+            myEvent(chkevent, function(e) { // For >=IE7, Chrome, Firefox
+                $(".loader").fadeIn(100);
+            });
+	</script>
   </body>
 </html>

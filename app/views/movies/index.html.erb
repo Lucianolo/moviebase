@@ -9,7 +9,9 @@
 -->
 
 <div id="wrapper jumbotron">
+  
   <div id="content" class="row" style ="margin:0 2em;">
+    <h2 style="text-align:center;color:#0393ff; margin:0 auto; padding-top:30px">POPULAR MOVIES</h2>
     <div class="col-md-6">
     <ul id="movieposters">
         <% movie_list = random_movie %>
@@ -50,7 +52,7 @@
   				<div class="movieinfo_right">
   					<h3><%= movie4.title %></h3>
   					<p><%= movie4.tagline %> </p>
-  					<%= link_to "More info" , movie_path(movie3) %>
+  					<%= link_to "More info" , movie_path(movie4) %>
   				</div>
   			</li>
 			
@@ -61,7 +63,7 @@
 <hr>
 <div class="main">
   <div class="container">
-   <h2>On Theaters</h2>
+   <h2>In Theaters</h2>
     <div class="row">
       <% @movies.each do |f| %>
       <div class="col-md-3">
