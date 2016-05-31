@@ -3,20 +3,29 @@ class MoviesController < ApplicationController
   
   Tmdb::Api.key("8cb26e052ead7ca74eda6261beb93fd5")
   $configuration = Tmdb::Configuration.new
-  
-  $base_url = $configuration.secure_base_url
+  Tmdb::Api.language("it")
+  $base_url = $configuration.base_url
   $poster_size = "w342"
   $profile_size = "w185"
   
   def index
     movies = Tmdb::Movie.now_playing
     @movies = []
+   
     movies.each do |movie|
       if Movie.where(tmdb: movie.id ).count > 0
         @movies.push(Movie.where(tmdb: movie.id ).first)
       else
-        movie_par = Tmdb::Movie.detail(movie.id)
-        @movie = Movie.new(movie_params(movie_par))
+        cast = Tmdb::Movie.casts(movie.id)
+        posters = Tmdb::Movie.images(movie.id)['posters']
+        if ((!posters.nil?) && (!cast.nil?))
+          if (cast.any? && posters.any?)
+            movie_par = Tmdb::Movie.detail(movie.id)
+            @movie = Movie.new(movie_params(movie_par))
+          else
+            next
+          end
+        end
         if @movie.save!
           cast = Tmdb::Movie.casts(@movie.tmdb)
           if !cast.nil?
@@ -40,6 +49,7 @@ class MoviesController < ApplicationController
   def search
     @id = params[:search]
     @search = Tmdb::Search.new
+    
     @search.resource('movie')
     @search.query(@id) 
     @movie_results = @search.fetch
@@ -72,6 +82,7 @@ class MoviesController < ApplicationController
     else
     
     # If it's not, then we retrieve the movie's informations and store it in the db
+    
       movie_par = Tmdb::Movie.detail(tmdb_id)
       
       
@@ -114,8 +125,16 @@ class MoviesController < ApplicationController
         @movies.push(Movie.where(tmdb: movie.id ).first)
         
       else
-        movie_par = Tmdb::Movie.detail(movie.id)
-        @movie = Movie.new(movie_params(movie_par))
+        cast = Tmdb::Movie.casts(movie.id)
+        posters = Tmdb::Movie.images(movie.id)['posters']
+        if ((!posters.nil?) && (!cast.nil?))
+          if (cast.any? && posters.any?)
+            movie_par = Tmdb::Movie.detail(movie.id)
+            @movie = Movie.new(movie_params(movie_par))
+          else
+            next
+          end
+        end
         if @movie.save!
           cast = Tmdb::Movie.casts(movie.id)
           
@@ -144,16 +163,13 @@ class MoviesController < ApplicationController
       end
       imdb = movie["imdb_id"]
       tmdb = movie["id"]
-      poster_hash = Tmdb::Movie.images(tmdb)['posters']
+      poster_hash = Tmdb::Movie.images(tmdb)['posters'][0]['file_path']
+      
       tagline = Tmdb::Movie.detail(tmdb)["tagline"]
-        
-      if !poster_hash.nil?
-        if poster_hash.any?
-          poster_path = $base_url+$poster_size+poster_hash[0]["file_path"]
-        else
-          poster_path = ""
-        end
-      end
+      
+      poster_path = $base_url+$poster_size+poster_hash unless poster_hash.nil?
+      
+      
       hash = { "title" => title, "release_year" => release_year, "image" => poster_path, "plot" => plot,  "tmdb"=> tmdb ,"imdb" => imdb, "rating" => rating, "tagline" => tagline }
       return hash
     end
